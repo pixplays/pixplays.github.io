@@ -191,21 +191,19 @@ function fetchUniques(){
 
   function parseWiki(json){
     var uniques = {};
-    console.log(json);
     uniques = json.reduce((r, item) => {
         r[item.WeaponType] = r[item.WeaponType] || {};
         r[item.WeaponType][item.Id] = {
-          'name': item.Name,
+          'name': item.Name.replace('**',''),
           'slug-name': slugify(item.Name),
           'wiki_url':"https://torchlight-doc.xd.com/inventory/detail?id="+item.Id+"&lang=en_WW",
-          'affixes': item.DetailAffix.map((affix)=> affix.desc.replace(/<\/?[^>]+(>|$)/g, "").replace('**','') ),
+          'affixes': (item.BaseAttr?[item.BaseAttr[0].desc]:[]).concat(item.DetailAffix.map((affix)=> affix.desc.replace(/<\/?[^>]+(>|$)/g, "").replace('**','') )),
           'img': item.Icon,
           'type': item.WeaponType,
           'minlvl': item.NeedLevel
         }
         return r
       }, Object.create(null))
-    console.log(uniques);
     Uniques = uniques;
 
     ItemsPlanner.component('explorer', Explorer)
