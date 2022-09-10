@@ -197,7 +197,7 @@ function fetchUniques(){
         r[item.WeaponType][item.Id] = {
           'name': item.Name,
           'slug-name': slugify(item.Name),
-          'wiki-url':"https://torchlight-doc.xd.com/inventory/detail?id="+item.Id+"&lang=en_WW",
+          'wiki_url':"https://torchlight-doc.xd.com/inventory/detail?id="+item.Id+"&lang=en_WW",
           'affixes': item.DetailAffix.map((affix)=> affix.desc.replace(/<\/?[^>]+(>|$)/g, "").replace('**','') ),
           'img': item.Icon,
           'type': item.WeaponType,
